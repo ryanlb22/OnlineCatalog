@@ -141,9 +141,6 @@ function isFormValid() {
                         <option value="DESC">Descending</option>
                     </select>
                      <input type="submit" value="Search" name="submitForm"/>
-            
-            
-            
         </form>
         
         <?php
@@ -164,6 +161,5 @@ function isFormValid() {
             
         }
         ?>
-
     </body>
 </html>
