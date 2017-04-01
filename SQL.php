@@ -77,10 +77,13 @@ function theSearch() {
     $songs = getFilters($filter);
     
     echo "<table>";
-    echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th></tr>";
+    echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th><th>Price</th></tr>";
     foreach($songs as $song) {
         echo "<tr>";
-        echo "<td>" .$song['songName'] . "</td><td>" . $song['artistName']  . "</td><td>" . $song['albumName'] . "</td>";
+        echo "<td>" .$song['songName'] . "</td>";
+        echo "<td>" . "<a href='artistInfo.php?artistName=".$song['artistName']."'target='artistInfoFrame'>" . $song['artistName'] . "</a> "  . "</td>";
+        echo "<td>" . $song['albumName'] . "</td>";
+        echo "<td>" . $song['price'] . "</td>";
         echo "</tr>";
     }
     echo"</table>";
@@ -135,6 +138,7 @@ function isFormValid() {
                         <option value="">Select One</option>
                         <option value="songName">Song</option>
                         <option value="artistName">Artist</option>
+                        <option value="price">Price</option>
                     </select>
                     <select name="asc">
                         <option value="ASC">Ascending</option>
@@ -151,10 +155,13 @@ function isFormValid() {
         else {
             $songs = getSongs();
             echo "<table>";
-            echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th></tr>";
+            echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th><th>Price</th></tr>";
             foreach($songs as $song) {
                 echo "<tr>";
-                echo "<td>" .$song['songName'] . "</td><td>" . "<a href='artistInfo.php?artistName=".$song['artistName']."'target='artistInfoFrame'>" . $song['artistName'] . "</a> "  . "</td><td>" . $song['albumName'] . "</td>";
+                echo "<td>" .$song['songName'] . "</td>";
+                echo "<td>" . "<a href='artistInfo.php?artistName=".$song['artistName']."'target='artistInfoFrame'>" . $song['artistName'] . "</a> "  . "</td>";
+                echo "<td>" . $song['albumName'] . "</td>";
+                echo "<td>" . $song['price'] . "</td>";
                 echo "</tr>";
             }
             echo"</table>";
