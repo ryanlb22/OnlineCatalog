@@ -87,6 +87,7 @@ function theSearch() {
     
 }
 
+
 function isFormValid() {
     if ( isset($_GET['submitForm']))
     {
@@ -156,10 +157,11 @@ function isFormValid() {
             echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th></tr>";
             foreach($songs as $song) {
                 echo "<tr>";
-                echo "<td>" .$song['songName'] . "</td><td>" . $song['artistName']  . "</td><td>" . $song['albumName'] . "</td>";
+                echo "<td>" .$song['songName'] . "</td><td>" . "<a href='artistInfo.php?artistName=".$song['artistName']."'target='artistInfoFrame'>" . $song['artistName'] . "</a> "  . "</td><td>" . $song['albumName'] . "</td>";
                 echo "</tr>";
             }
             echo"</table>";
+            
         }
         ?>
 
