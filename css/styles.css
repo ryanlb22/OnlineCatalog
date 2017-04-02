@@ -3,6 +3,22 @@ th {
     text-align: left;
 }
 
-h1 {
+td {
     text-align: left;
+}
+
+body {
+    text-align: center;
+}
+
+
+#songList {
+    display:inline-block;
+    width: 600px;
+    height: 500px;
+}
+
+#songInfo {
+    display:inline-block;
+    text-align: center;
 }

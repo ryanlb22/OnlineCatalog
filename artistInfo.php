@@ -5,11 +5,11 @@ function callAPI($artist) {
     global $array;
     
     $artist = urlencode($artist);
-    $response    = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={$artist}&api_key=fadfa11f235800e289aeca6bdae5d54f&format=json";
-    $json    = file_get_contents($response);
+    $response = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={$artist}&api_key=fadfa11f235800e289aeca6bdae5d54f&format=json";
+    $json = file_get_contents($response);
     
     if(!$json) {
-            return;  // Artist lookup failed.
+        return;  // Artist lookup failed.
     }
     
     $array = json_decode($json,true);
@@ -37,7 +37,6 @@ function getSimilarArtists() {
     }
     echo "</tr><tr>";
     foreach($artists as $artist) {
-        
         echo "<td>" . "<a href='artistInfo.php?artistName=". $artist['name']."'target='artistInfoFrame'>" . $artist['name'] . "</a> "  . "</td>";
     }
     echo "</tr></table>";
@@ -49,11 +48,11 @@ function getSimilarArtists() {
 <!DOCTYPE html>
 <html>
     <head>
-        <title> User Info </title>
+        <title> Artist Info </title>
     </head>
     <body>
 
-        <h2> Artist: <?=$_GET['artistName']?></h2>\
+        <h2> Artist: <?=$_GET['artistName']?></h2>
         
         <?php
             $artist = $_GET['artistName'];

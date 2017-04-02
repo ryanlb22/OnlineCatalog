@@ -70,17 +70,16 @@ function theSearch() {
     if (!empty($_GET['nationality'])) {
         $filter = $filter . " AND nationality = '" . $_GET['nationality'] . "'";
     }
-    if (!empty($_GET['sort'])) {
-        $filter = $filter . " ORDER BY " . $_GET['sort'] . " " . $_GET['asc'];
-    }
+    $filter = $filter . " ORDER BY " . 'songName' . " " . $_GET['asc'];
     
     $songs = getFilters($filter);
     
     echo "<table>";
     echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th><th>Price</th></tr>";
     foreach($songs as $song) {
+        $url = $song['songId'];
         echo "<tr>";
-        echo "<td>" .$song['songName'] . "</td>";
+        echo "<td>" . "<a href='songInfo.php?songId=" . $url . "' target='songInfoFrame'>" . $song['songName'] . "</a></td>";
         echo "<td>" . "<a href='artistInfo.php?artistName=".$song['artistName']."'target='artistInfoFrame'>" . $song['artistName'] . "</a> "  . "</td>";
         echo "<td>" . $song['albumName'] . "</td>";
         echo "<td>" . $song['price'] . "</td>";
@@ -115,7 +114,7 @@ function isFormValid() {
         
         <form method="GET" action"SQL.php">
             
-            Song: <input type="text" name="songName"/>
+            Song: <input type="text" name="songName"/><br />
             Artist:    <select name="artistName">
                        <option value="">Select One</option>
                        <?php
@@ -124,7 +123,7 @@ function isFormValid() {
                               echo "<option value = '" . $artist['artistName'] ."'>" . $artist['artistName']    ." </option>";
                           }
                         ?>
-                     </select>
+                     </select><br />
             Nationality: <select name="nationality">
                            <option value="">Select One</option>
                                 <?php
@@ -133,40 +132,28 @@ function isFormValid() {
                                       echo "<option value = '" . $nationality['nationality'] ."'>" . $nationality['nationality']    ." </option>";
                                   }
                                 ?>
-                            </select>
-            Sort By: <select name="sort">
-                        <option value="">Select One</option>
-                        <option value="songName">Song</option>
-                        <option value="artistName">Artist</option>
-                        <option value="price">Price</option>
-                    </select>
-                    <select name="asc">
-                        <option value="ASC">Ascending</option>
-                        <option value="DESC">Descending</option>
-                    </select>
+                            </select><br />
+            Sort By Name: 
+                    <input type="radio" name="asc" value="ASC" checked/> Ascending
+                    <input type="radio" name="asc" value="DESC"/> Descending<br />
                      <input type="submit" value="Search" name="submitForm"/>
         </form>
+        <div id="songsAndInfo">
+            <div id='songList'>
+                <?php
+                if (isFormValid())
+                {
+                    theSearch();
+                }
+                else {
+                    theSearch();
+                }
+                ?>
+            </div>
+            <div id="songInfo">
+                <iframe src="" width="400" height="250" name="songInfoFrame"></iframe>
+            </div>
+        </div>
         
-        <?php
-        if (isFormValid())
-        {
-            theSearch();
-        }
-        else {
-            $songs = getSongs();
-            echo "<table>";
-            echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th><th>Price</th></tr>";
-            foreach($songs as $song) {
-                echo "<tr>";
-                echo "<td>" .$song['songName'] . "</td>";
-                echo "<td>" . "<a href='artistInfo.php?artistName=".$song['artistName']."'target='artistInfoFrame'>" . $song['artistName'] . "</a> "  . "</td>";
-                echo "<td>" . $song['albumName'] . "</td>";
-                echo "<td>" . $song['price'] . "</td>";
-                echo "</tr>";
-            }
-            echo"</table>";
-            
-        }
-        ?>
     </body>
 </html>
