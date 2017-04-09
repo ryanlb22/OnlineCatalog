@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $dbname = "music";
-$username = "web_user";
+$username = "root";
 $password = "s3cr3t";
 
 //Creating database connection
@@ -15,7 +15,7 @@ $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 function getSongs() {
     global $dbConn;
-    
+
     $sql = "SELECT * FROM song NATURAL JOIN artist NATURAL JOIN album ORDER BY songName";
     $stmt = $dbConn -> prepare ($sql);
     $stmt -> execute( );
@@ -73,7 +73,7 @@ function theSearch() {
     $filter = $filter . " ORDER BY " . 'songName' . " " . $_GET['asc'];
     
     $songs = getFilters($filter);
-    
+    echo "<div style ='float:left'>";
     echo "<table>";
     echo "<tr><th>Song Name</th><th>Artist Name</th><th>Album Name</th><th>Price</th></tr>";
     foreach($songs as $song) {
@@ -86,6 +86,7 @@ function theSearch() {
         echo "</tr>";
     }
     echo"</table>";
+    echo "</div>";
     
 }
 
@@ -107,7 +108,7 @@ function isFormValid() {
         <title>Music Library </title>
         <style>
             @import url("css/styles.css");
-            </style>
+        </style>
     </head>
     <body>
         <h1>Music Library</h1>
@@ -137,7 +138,10 @@ function isFormValid() {
                     <input type="radio" name="asc" value="ASC" checked/> Ascending
                     <input type="radio" name="asc" value="DESC"/> Descending<br />
                      <input type="submit" value="Search" name="submitForm"/>
-        </form>
+                     <a href="shoppingCart.php">
+                     <input type ="button" value="Shopping Cart" name="shoppingCart"/>
+                     </a>
+        </form><br />
         <div id="songsAndInfo">
             <div id='songList'>
                 <?php
@@ -150,8 +154,8 @@ function isFormValid() {
                 }
                 ?>
             </div>
-            <div id="songInfo">
-                <iframe src="" width="400" height="250" name="songInfoFrame"></iframe>
+            <div id="songInfo" style = "float:center">
+                <iframe src="" width="400" height="400" name="songInfoFrame"></iframe>
             </div>
         </div>
         

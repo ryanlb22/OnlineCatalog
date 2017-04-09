@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $dbname = "music";
-$username = "web_user";
+$username = "root";
 $password = "s3cr3t";
 $record = "";
 //Creating database connection
@@ -21,7 +21,6 @@ function getAlbumCover($artist, $album) {
     if(!$json) {
         return;  // Artist lookup failed.
     }
-    
     $array = json_decode($json,true);
     echo "<tr><td rowspan='7'><img src='". $array['album']['image'][2]['#text'] . "' /></td></tr>";
 }
@@ -33,6 +32,7 @@ function populate() {
         return;
     }
     $sql = "SELECT * FROM song NATURAL JOIN artist NATURAL JOIN album WHERE songId = " . $_GET['songId'];
+    
     $stmt = $dbConn -> prepare ($sql);
     $stmt -> execute( );
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,6 +48,14 @@ function populate() {
     echo "<tr><td>" . "Price: " .$record['price'] ."</td></tr>";
     echo "</table>";
 }
+function updateCart(){
+    global $dbConn;
+    global $record;
+    $addButton = $_POST['addToCart'];
+    if($addButton){
+        echo "Hello World";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,9 +63,10 @@ function populate() {
         <title> User Info </title>
     </head>
     <body>
+        <h1>Song Info</h1>
         <?php
             populate();
         ?>
-        <input type="button" name="addToCart" value="Add To Cart"/>
+        <input type="submit" name="addToCart" value="Add To Cart" onClick="window.location.href='shoppingCart.php'"/>
     </body>
 </html>

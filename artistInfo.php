@@ -1,4 +1,14 @@
 <?php
+$host = "localhost";
+$dbname = "music";
+$username = "root";
+$password = "s3cr3t";
+$record = "";
+//Creating database connection
+$dbConn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+// Setting Errorhandling to Exception
+$dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+
 $json = "";
 $array = "";
 function callAPI($artist) {
@@ -14,6 +24,7 @@ function callAPI($artist) {
     
     $array = json_decode($json,true);
 }
+
 function getArtistPhoto() {
     global $array;
     echo "<img src='". $array['artist']['image'][3]['#text'] . "' />";
@@ -24,7 +35,6 @@ function getArtistInfo() {
     echo "<h2>Biography: </h2>";
     echo "<p>". $array['artist']['bio']['content'] . "</p>";
 }
-
 function getSimilarArtists() {
     global $array;
     //print_r($array['artist']['bio']['content']);
@@ -49,16 +59,39 @@ function getSimilarArtists() {
 <html>
     <head>
         <title> Artist Info </title>
+        <style>
+            body{
+                width:1200px;
+                margin:0 auto;
+                padding:5%;
+                border:5px ridge blue;
+                text-align:center;
+            }
+            h2{
+                font-size:50px;
+                text-align:center;
+                
+            }
+            #try{
+                border:2px solid black;
+            }
+            
+        </style>
     </head>
     <body>
 
-        <h2> Artist: <?=$_GET['artistName']?></h2>
+       
         
         <?php
+            global $artist,$album;
             $artist = $_GET['artistName'];
+            $album = $_GET['album'];
+            echo $album;
+            echo "<h2>" . $_GET['artistName']."</h2>";
             callAPI($artist);
             getArtistPhoto();
             getArtistInfo();
+            echo "<hr>";
             getSimilarArtists();
         ?>
 

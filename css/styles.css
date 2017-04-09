@@ -1,24 +1,44 @@
-th {
+th{
     background-color: gray;
-    text-align: left;
+    text-align:left;
+}
+table{
+    border:5px ridge blue;
+   
+}
+td {
+    text-align:left;
+     
+}
+table,tr,th,td{
+    background-color:white;
+    color:blue;
 }
 
-td {
-    text-align: left;
-}
 
 body {
     text-align: center;
+    background-image: url(/team_project/OnlineCatalog/img/background.jpg); 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    
 }
-
 
 #songList {
     display:inline-block;
     width: 600px;
     height: 500px;
+
 }
 
 #songInfo {
     display:inline-block;
     text-align: center;
+    border:5px ridge blue;
+}
+#songInfoFrame{
+    border:2px dotted black;
+    
 }
