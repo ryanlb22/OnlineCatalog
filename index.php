@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $dbname = "music";
-$username = "root";
+$username = "web_user";
 $password = "s3cr3t";
 
 //Creating database connection
@@ -36,10 +36,10 @@ function getArtists() {
     
 }
 
-function getNationality() {
+function getAlbum() {
     global $dbConn;
     
-    $sql = "SELECT DISTINCT nationality FROM artist ORDER BY nationality";
+    $sql = "SELECT DISTINCT albumName FROM album ORDER BY albumName";
     $stmt = $dbConn -> prepare ($sql);
     $stmt -> execute( );
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -67,8 +67,8 @@ function theSearch() {
     if (!empty($_GET['artistName'])) {
         $filter = $filter . " AND artistName = '" . $_GET['artistName'] . "'";
     }
-    if (!empty($_GET['nationality'])) {
-        $filter = $filter . " AND nationality = '" . $_GET['nationality'] . "'";
+    if (!empty($_GET['albumName'])) {
+        $filter = $filter . " AND albumName = '" . $_GET['albumName'] . "'";
     }
     $filter = $filter . " ORDER BY " . 'songName' . " " . $_GET['asc'];
     
@@ -124,16 +124,16 @@ function isFormValid() {
                           }
                         ?>
                      </select><br />
-            Nationality: <select name="nationality">
+            Album: <select name="albumName">
                            <option value="">Select One</option>
                                 <?php
-                                  $nationalities = getNationality();
-                                  foreach ($nationalities as $nationality) {
-                                      echo "<option value = '" . $nationality['nationality'] ."'>" . $nationality['nationality']    ." </option>";
+                                  $albums = getAlbum();
+                                  foreach ($albums as $album) {
+                                      echo "<option value = '" . $album['albumName'] ."'>" . $album['albumName']    ." </option>";
                                   }
                                 ?>
                             </select><br />
-            Sort By Name: 
+            Sort By Song: 
                     <input type="radio" name="asc" value="ASC" checked/> Ascending
                     <input type="radio" name="asc" value="DESC"/> Descending<br />
                      <input type="submit" value="Search" name="submitForm"/>

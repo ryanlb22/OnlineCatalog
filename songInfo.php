@@ -2,7 +2,7 @@
 session_start();
 $host = "localhost";
 $dbname = "music";
-$username = "root";
+$username = "web_user";
 $password = "s3cr3t";
 $record = "";
 //Creating database connection
@@ -43,6 +43,7 @@ function populate() {
     }*/
     $_SESSION['songVar'] = $_GET['songId'];
    
+    echo "<h1>Song Info</h1>";
     echo "<table>";
     getAlbumCover($record['artistName'], $record['albumName']);
     echo "<tr><td>" . $record['songName'] ."</td></tr>";
@@ -81,7 +82,6 @@ if(isset($_GET['clearCart']))
       
     </head>
     <body>
-        <h1>Song Info</h1>
         <?php
            populate();
 

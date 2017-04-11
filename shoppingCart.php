@@ -2,7 +2,7 @@
 session_start();
 $host = "localhost";
 $dbname = "music";
-$username = "root";
+$username = "web_user";
 $password = "s3cr3t";
 //Creating database connection
 
@@ -81,7 +81,7 @@ if(isset($_GET['purchase']))
     ?>
     <form>
     <input type="submit" name="purchase" value="Purchase Songs"/>
-    <input type ="button" value="Add More" name="addMore" onclick="location.href='SQL.php'"/>
+    <input type ="button" value="Add More" name="addMore" onclick="location.href='index.php'"/>
     </form>
     </body>
 </html>
