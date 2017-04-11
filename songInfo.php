@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = "localhost";
 $dbname = "music";
 $username = "root";
@@ -32,12 +33,16 @@ function populate() {
         return;
     }
     $sql = "SELECT * FROM song NATURAL JOIN artist NATURAL JOIN album WHERE songId = " . $_GET['songId'];
-    
     $stmt = $dbConn -> prepare ($sql);
     $stmt -> execute( );
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $record = $records[0];
-    
+/*if(isset($_SESSION['songVar']))
+    {
+     $_SESSION['songVar'] =0;
+    }*/
+    $_SESSION['songVar'] = $_GET['songId'];
+   
     echo "<table>";
     getAlbumCover($record['artistName'], $record['albumName']);
     echo "<tr><td>" . $record['songName'] ."</td></tr>";
@@ -47,26 +52,44 @@ function populate() {
     echo "<tr><td>" . "Length: " . $record['length'] ."</td></tr>";
     echo "<tr><td>" . "Price: " .$record['price'] ."</td></tr>";
     echo "</table>";
+    
+       
+
 }
-function updateCart(){
-    global $dbConn;
-    global $record;
-    $addButton = $_POST['addToCart'];
-    if($addButton){
-        echo "Hello World";
-    }
+
+if(!isset($_SESSION['cart']))
+{
+    $_SESSION['cart'] = array();
 }
+if(isset($_GET['addToCart']))
+{
+   // echo "Song ID " . $_SESSION['songVar'];
+    array_push($_SESSION['cart'],$_SESSION['songVar']);
+    echo "<br> Added to cart";
+//    print_r( $_SESSION['cart']);
+}
+if(isset($_GET['clearCart']))
+{
+    unset($_SESSION['cart']);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title> User Info </title>
+      
     </head>
     <body>
         <h1>Song Info</h1>
         <?php
-            populate();
+           populate();
+
         ?>
-        <input type="submit" name="addToCart" value="Add To Cart" onClick="window.location.href='shoppingCart.php'"/>
+        <form>
+        <input type="submit" name="addToCart" value="Add To Cart"/>
+        <input type="submit" name="clearCart" value="Clear Cart"/>
+        </form>
+
     </body>
 </html>

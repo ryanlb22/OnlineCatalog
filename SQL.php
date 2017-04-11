@@ -98,7 +98,6 @@ function isFormValid() {
     }
     return false;
 }
-
 ?>
 
 
@@ -138,9 +137,9 @@ function isFormValid() {
                     <input type="radio" name="asc" value="ASC" checked/> Ascending
                     <input type="radio" name="asc" value="DESC"/> Descending<br />
                      <input type="submit" value="Search" name="submitForm"/>
-                     <a href="shoppingCart.php">
-                     <input type ="button" value="Shopping Cart" name="shoppingCart"/>
-                     </a>
+                     
+                     <input type ="button" value="Shopping Cart" name="shoppingCart" onclick="location.href='shoppingCart.php'"/>
+               
         </form><br />
         <div id="songsAndInfo">
             <div id='songList'>
